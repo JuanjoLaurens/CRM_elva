@@ -8,11 +8,14 @@ use App\Models\Escuela;
 
 class EscuelaController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        // Devuelve una lista de escuelas
-        $escuelas = Escuela::paginate(10);
-
+        $search = $request->input('search');
+    
+        $escuelas = Escuela::when($search, function ($query, $search) {
+            return $query->where('nombre', 'LIKE', "%$search%");
+        })->paginate(10);
+    
         return view('escuelas.index', compact('escuelas'));
     }
 

@@ -5,6 +5,34 @@
         <h2>Lista de Alumnos</h2>
         <a href="{{ route('alumnos.create') }}" class="btn btn-success mb-2">Crear Alumno</a>
         <a href="{{ route('escuelas.index') }}" class="btn btn-info mb-2 float-right">Ver Escuelas</a>
+        <form action="{{ route('alumnos.index') }}" method="GET" class="mb-3">
+            <div class="input-group">
+                <div class="col-md-3 col-sm-6">
+                    <input type="text" class="form-control" name="search" placeholder="Buscar por nombre">
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <button class="btn btn-outline-secondary btn-block" type="submit">Buscar</button>
+                </div>
+            </div>
+        </form>
+        <form action="{{ route('alumnos.index') }}" method="GET" class="mb-3">
+            <div class="input-group">
+                <div class="col-md-3 col-sm-6">
+                    <select name="escuela_id" class="form-control">
+                        <option value="" selected>Seleccionar Escuela</option>
+                        @foreach($escuelas as $escuela)
+                            <option value="{{ $escuela->id }}" {{ request('escuela_id') == $escuela->id ? 'selected' : '' }}>
+                                {{ $escuela->nombre }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="col-md-2 col-sm-12">
+                    <button class="btn btn-outline-secondary btn-block" type="submit">Filtrar</button>
+                </div>
+            </div>
+        </form>
+        
 
         <table class="table">
             <thead>

@@ -7,13 +7,24 @@ use Illuminate\Http\Request;
 
 class AlumnoController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        // Devuelve una lista de alumnos
-        $alumnos = Alumno::paginate(10);
-
-        return view('alumnos.index', compact('alumnos'));
+        $search = $request->input('search');
+        $escuelaId = $request->input('escuela_id');
+    
+        $alumnos = Alumno::when($search, function ($query, $search) {
+            return $query->where('nombre', 'LIKE', "%$search%");
+        })
+        ->when($escuelaId, function ($query, $escuelaId) {
+            return $query->where('escuela_id', $escuelaId);
+        })
+        ->paginate(10);
+    
+        $escuelas = Escuela::all(); // Obtener la lista de escuelas
+    
+        return view('alumnos.index', compact('alumnos', 'escuelas'));
     }
+    
 
     public function create()
     {

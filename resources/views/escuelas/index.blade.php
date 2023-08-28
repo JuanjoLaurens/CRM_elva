@@ -5,6 +5,17 @@
         <h2>Lista de Escuelas</h2>
         <a href="{{ route('escuelas.create') }}" class="btn btn-success mb-2">Crear Escuela</a>
         <a href="{{ route('alumnos.index') }}" class="btn btn-info mb-2 float-right">Ver Alumnos</a>
+        <form action="{{ route('escuelas.index') }}" method="GET" class="mb-3">
+            <div class="input-group">
+                <div class="col-md-3 col-sm-6">
+                    <input type="text" class="form-control" name="search" placeholder="Buscar por nombre">
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <button class="btn btn-outline-secondary btn-block" type="submit">Buscar</button>
+                </div>
+            </div>
+        </form>
+        
 
         <table class="table">
             <thead>
